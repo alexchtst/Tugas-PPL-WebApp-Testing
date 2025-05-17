@@ -1,13 +1,23 @@
 import { twMerge } from 'tailwind-merge';
+import { ChangeEvent } from 'react';
 
 interface CustomInputInterface {
   label: string;
   input_type: string;
   place_holder: string;
-  className?: string; // optional external class
+  className?: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function CustomInput({ label, input_type, place_holder, className }: CustomInputInterface) {
+export default function CustomInput({
+  label,
+  input_type,
+  place_holder,
+  className,
+  value,
+  onChange,
+}: CustomInputInterface) {
   const inputClass = twMerge(
     "w-full border rounded-lg px-4 py-2 bg-gray-50 text-gray-700 focus:outline-none",
     className
@@ -22,6 +32,8 @@ export default function CustomInput({ label, input_type, place_holder, className
         type={input_type}
         className={inputClass}
         placeholder={place_holder}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

@@ -1,6 +1,10 @@
+'use client'
+
 import { ClipboardList, Search } from "lucide-react";
 import CustomInput from '@/app/components/CustomInput';
 import CustomButton from "../components/CustomButton";
+import { redirect } from 'next/navigation';
+
 
 export default function TaxPayment() {
   return (
@@ -11,7 +15,7 @@ export default function TaxPayment() {
           <Search color='blue' size={30} />
           <p className='font-bold text-blue-600 text-xl'>Reference Lookup</p>
         </div>
-        <button className='text-gray-300 cursor-pointer'>Home</button>
+        <button type="button" className='text-gray-300 cursor-pointer' onClick={() => redirect('/submission')}>Home</button>
       </div>
       {/* navigation */}
 

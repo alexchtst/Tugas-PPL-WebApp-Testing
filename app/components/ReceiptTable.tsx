@@ -1,3 +1,5 @@
+'use client'
+
 interface SubmissionReceipt {
     ref_num: string;
     tax_type: string;
@@ -7,6 +9,7 @@ interface SubmissionReceipt {
 
 import { MoveLeft } from "lucide-react";
 import CustomButton from "./CustomButton";
+import { redirect } from 'next/navigation';
 
 export default function ReceiptTable({ ref_num, tax_type, tax_ammount, submission_date }: SubmissionReceipt) {
     return (
@@ -27,7 +30,7 @@ export default function ReceiptTable({ ref_num, tax_type, tax_ammount, submissio
                 <p className="font-light text-gray-500">Submission Date</p>
                 <p className="text-indigo-600">{submission_date}</p>
             </div>
-            <CustomButton className="mt-9 bg-indigo-800 hover:bg-indigo-600">
+            <CustomButton className="mt-9 bg-indigo-800 hover:bg-indigo-600" onClick={() => redirect('/submission')}>
                 <MoveLeft color="white" />
                 <p className="font-bold text-white">Back to New Submission</p>
             </CustomButton>

@@ -1,7 +1,16 @@
+import { use } from 'react';
 import { Receipt } from "lucide-react";
-import ReceiptTable from "../components/ReceiptTable";
+import ReceiptTable from "../../components/ReceiptTable";
 
-export default function Recipt() {
+interface PageProps {
+  params: {
+    ref: string;
+  };
+}
+
+export default async function Recipt({ params }: PageProps) {
+  const { ref } = await params;
+
   return (
     <div className='flex justify-center h-screen items-center'>
       {/* card */}
