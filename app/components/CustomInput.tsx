@@ -8,6 +8,7 @@ interface CustomInputInterface {
   className?: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }
 
 export default function CustomInput({
@@ -17,9 +18,11 @@ export default function CustomInput({
   className,
   value,
   onChange,
+  errorMessage,
 }: CustomInputInterface) {
   const inputClass = twMerge(
     "w-full border rounded-lg px-4 py-2 bg-gray-50 text-gray-700 focus:outline-none",
+    errorMessage ? "border-red-500" : "",
     className
   );
 
@@ -35,6 +38,9 @@ export default function CustomInput({
         value={value}
         onChange={onChange}
       />
+      {errorMessage && (
+        <p className="text-sm text-red-500 mt-1">{errorMessage}</p>
+      )}
     </div>
   );
 }
