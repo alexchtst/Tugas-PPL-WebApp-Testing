@@ -1,9 +1,27 @@
+'use client';
+
+import { useState } from 'react';
 import TaxTypeDropdown from '@/app/components/TaxTypeDropdown';
 import { CircleDollarSign, CircleUser, ReceiptText } from 'lucide-react';
 import CustomInput from '@/app/components/CustomInput';
 import CustomButton from '@/app/components/CustomButton';
 
 export default function Submission() {
+  const [taxAmount, setTaxAmount] = useState('');
+  const [amountError, setAmountError] = useState('');
+
+  const handleSubmit = () => {
+    const parsedAmount = parseFloat(taxAmount);
+
+    if (isNaN(parsedAmount) || parsedAmount < 0) {
+      setAmountError('Tax amount must be a positive number.');
+      return;
+    }
+
+    setAmountError('');
+    alert(`Tax submitted: ${parsedAmount}`);
+  };
+
   return (
     <div className='flex flex-col justify-between h-screen items-center'>
       {/* navigation */}
@@ -31,9 +49,12 @@ export default function Submission() {
         <CustomInput
           label="Tax Amount"
           input_type="number"
-          place_holder="Enter Ammount (e.g 12000)"
+          place_holder="Enter Amount (e.g 12000)"
+          value={taxAmount}
+          onChange={(e) => setTaxAmount(e.target.value)}
+          errorMessage={amountError}
         />
-        <CustomButton>
+        <CustomButton onClick={handleSubmit}>
           Submit Payment
         </CustomButton>
 
