@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Receipt {
+  id              Int    @id @default(autoincrement())
+  ref_num         String @unique
+  tax_type        String
+  tax_ammount     Int
+  submission_date String
+}
