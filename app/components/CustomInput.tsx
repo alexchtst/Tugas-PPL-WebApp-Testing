@@ -20,6 +20,7 @@ export default function CustomInput({
   onChange,
   errorMessage,
 }: CustomInputInterface) {
+  const id = label.toLowerCase().replace(/\s+/g, '-');
   const inputClass = twMerge(
     "w-full border rounded-lg px-4 py-2 bg-gray-50 text-gray-700 focus:outline-none",
     errorMessage ? "border-red-500" : "",
@@ -28,10 +29,11 @@ export default function CustomInput({
 
   return (
     <div className="mb-6">
-      <label className="block text-sm font-medium font-semibold text-left text-gray-700 mb-1">
+      <label htmlFor={id} className="block text-sm font-medium font-semibold text-left text-gray-700 mb-1">
         {label}
       </label>
       <input
+        id={id}
         type={input_type}
         className={inputClass}
         placeholder={place_holder}
