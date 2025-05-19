@@ -9,7 +9,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { tax_type, tax_amount, submission_date } = body;
 
-    // Validasi input wajib
     if (!tax_type || tax_amount == null || !submission_date) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -17,25 +16,19 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validasi nilai pajak harus positif
-    if (typeof tax_amount !== "number" || tax_amount < 0) {
-      return NextResponse.json(
-        { error: "Tax amount must be a positive number" },
-        { status: 400 }
-      );
-    }
-
     const ref_num = generateRefNum();
+    console.log("Generated Ref Num:", ref_num);
 
     const submission = await prisma.receipt.create({
       data: {
         ref_num,
         tax_type,
-        tax_amount, // Perbaiki dari tax_ammount ke tax_amount
+        tax_amount,
         submission_date,
       },
     });
 
+    console.log("Created Receipt:", submission);
     return NextResponse.json(submission, { status: 201 });
   } catch (error) {
     console.error("[API_SUBMISSION_POST]", error);

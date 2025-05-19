@@ -1,55 +1,123 @@
-import Image from "next/image";
 import CustomButton from "@/app/components/CustomButton";
 import { Receipt } from "lucide-react";
+import { format } from "date-fns";
 
-export default function ReceiptPage({
-  refNum = "TAX2025-001",
-  taxType = "Business Income Tax",
-  taxAmount = 2400.0,
-  submissionDate = "May 17, 2025",
+interface ReceiptData {
+  ref_num: string;
+  tax_type: string;
+  tax_amount: number;
+  submission_date: string;
+}
+
+async function getReceiptData(refNum: string) {
+  try {
+    // Gunakan BASE_URL dari environment variable untuk URL lengkap
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const cleanRef = encodeURIComponent(refNum.trim());
+    const apiUrl = `${baseUrl}/api/receipt/${cleanRef}`;
+    console.log("Fetching from:", apiUrl);
+
+    const res = await fetch(apiUrl, {
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("API Error:", errorData);
+      throw new Error(
+        errorData.error || `Failed to fetch receipt (Status: ${res.status})`
+      );
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  }
+}
+
+export default async function ReceiptPage({
+  params,
+}: {
+  params: { ref: string };
 }) {
-  return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
-      <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
-        <div className="flex justify-center mb-4">
-          <div className="bg-blue-100 rounded-full p-4">
-            <Receipt size={50} className="text-blue-600" />
+  try {
+    // Pastikan params sudah di-load sebelum digunakan
+    const { ref } = params;
+    console.log("Fetching receipt for ref:", ref);
+
+    const receipt: ReceiptData = await getReceiptData(ref);
+    if (!receipt) throw new Error("Receipt not found");
+
+    const formattedDate = format(
+      new Date(receipt.submission_date),
+      "MMMM d, yyyy"
+    );
+
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+        <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+          <div className="flex justify-center mb-4">
+            <div className="bg-blue-100 rounded-full p-4">
+              <Receipt size={50} className="text-blue-600" />
+            </div>
           </div>
+          <h2 className="text-2xl font-bold text-blue-800 mb-2">
+            Submission Receipt
+          </h2>
+          <p className="text-gray-500 mb-8">Your submission was successful!</p>
+
+          <div className="text-left mb-8 space-y-3">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Reference Number</span>
+              <span className="text-blue-900 font-semibold">
+                {receipt.ref_num}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Tax Type</span>
+              <span className="text-blue-700 font-semibold">
+                {receipt.tax_type}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Tax Amount</span>
+              <span className="text-green-600 font-semibold">
+                ${receipt.tax_amount.toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Submission Date</span>
+              <span className="text-blue-600 font-semibold">
+                {formattedDate}
+              </span>
+            </div>
+          </div>
+
+          <CustomButton href="/submission" className="w-full">
+            ← Back to New Submission
+          </CustomButton>
         </div>
-        <h2 className="text-2xl font-bold text-blue-800 mb-2">
-          Submission Receipt
-        </h2>
-        <p className="text-gray-500 mb-8">Your submission was successful!</p>
-        <div className="text-left mb-8">
-          <p className="text-gray-600 mb-2">
-            Reference Number{" "}
-            <span className="text-blue-900 font-semibold float-right">
-              {refNum}
-            </span>
-          </p>
-          <p className="text-gray-600 mb-2">
-            Tax Type{" "}
-            <span className="text-blue-700 font-semibold float-right">
-              {taxType}
-            </span>
-          </p>
-          <p className="text-gray-600 mb-2">
-            Tax Amount{" "}
-            <span className="text-green-600 font-semibold float-right">
-              ${taxAmount.toFixed(2)}
-            </span>
-          </p>
-          <p className="text-gray-600">
-            Submission Date{" "}
-            <span className="text-blue-600 font-semibold float-right">
-              {submissionDate}
-            </span>
-          </p>
-        </div>
-        <CustomButton href="/submission" className="w-full">
-          ← Back to New Submission
-        </CustomButton>
       </div>
-    </div>
-  );
+    );
+  } catch (error: any) {
+    console.error("Receipt error:", error);
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+        <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">
+            Error Loading Receipt
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Failed to load receipt data. Please try again later.
+          </p>
+          <CustomButton href="/submission" className="w-full">
+            ← Back to New Submission
+          </CustomButton>
+        </div>
+      </div>
+    );
+  }
 }

@@ -46,11 +46,13 @@ export default function Submission() {
 
       const data = await response.json();
       console.log("Response:", data); // Debug log
-
+      // Di app/submission/page.tsx (bagian handleSubmit)
+      // Di app/submission/page.tsx (bagian handleSubmit)
+      // Di app/submission/page.tsx (bagian handleSubmit)
       if (response.ok) {
-        alert(`Tax submitted successfully! Reference Number: ${data.ref_num}`);
-        setTaxAmount("");
-        setTaxType("");
+        // Encode ref_num sebelum redirect
+        const encodedRef = encodeURIComponent(data.ref_num);
+        window.location.href = `/receipt/${encodedRef}`;
       } else {
         alert(`Error: ${data.error}`);
       }
