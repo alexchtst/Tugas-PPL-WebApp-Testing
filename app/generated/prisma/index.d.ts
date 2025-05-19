@@ -883,19 +883,19 @@ export namespace Prisma {
 
   export type ReceiptAvgAggregateOutputType = {
     id: number | null
-    tax_ammount: number | null
+    tax_amount: number | null
   }
 
   export type ReceiptSumAggregateOutputType = {
     id: number | null
-    tax_ammount: number | null
+    tax_amount: number | null
   }
 
   export type ReceiptMinAggregateOutputType = {
     id: number | null
     ref_num: string | null
     tax_type: string | null
-    tax_ammount: number | null
+    tax_amount: number | null
     submission_date: string | null
   }
 
@@ -903,7 +903,7 @@ export namespace Prisma {
     id: number | null
     ref_num: string | null
     tax_type: string | null
-    tax_ammount: number | null
+    tax_amount: number | null
     submission_date: string | null
   }
 
@@ -911,7 +911,7 @@ export namespace Prisma {
     id: number
     ref_num: number
     tax_type: number
-    tax_ammount: number
+    tax_amount: number
     submission_date: number
     _all: number
   }
@@ -919,19 +919,19 @@ export namespace Prisma {
 
   export type ReceiptAvgAggregateInputType = {
     id?: true
-    tax_ammount?: true
+    tax_amount?: true
   }
 
   export type ReceiptSumAggregateInputType = {
     id?: true
-    tax_ammount?: true
+    tax_amount?: true
   }
 
   export type ReceiptMinAggregateInputType = {
     id?: true
     ref_num?: true
     tax_type?: true
-    tax_ammount?: true
+    tax_amount?: true
     submission_date?: true
   }
 
@@ -939,7 +939,7 @@ export namespace Prisma {
     id?: true
     ref_num?: true
     tax_type?: true
-    tax_ammount?: true
+    tax_amount?: true
     submission_date?: true
   }
 
@@ -947,7 +947,7 @@ export namespace Prisma {
     id?: true
     ref_num?: true
     tax_type?: true
-    tax_ammount?: true
+    tax_amount?: true
     submission_date?: true
     _all?: true
   }
@@ -1042,7 +1042,7 @@ export namespace Prisma {
     id: number
     ref_num: string
     tax_type: string
-    tax_ammount: number
+    tax_amount: number
     submission_date: string
     _count: ReceiptCountAggregateOutputType | null
     _avg: ReceiptAvgAggregateOutputType | null
@@ -1069,7 +1069,7 @@ export namespace Prisma {
     id?: boolean
     ref_num?: boolean
     tax_type?: boolean
-    tax_ammount?: boolean
+    tax_amount?: boolean
     submission_date?: boolean
   }, ExtArgs["result"]["receipt"]>
 
@@ -1077,7 +1077,7 @@ export namespace Prisma {
     id?: boolean
     ref_num?: boolean
     tax_type?: boolean
-    tax_ammount?: boolean
+    tax_amount?: boolean
     submission_date?: boolean
   }, ExtArgs["result"]["receipt"]>
 
@@ -1085,7 +1085,7 @@ export namespace Prisma {
     id?: boolean
     ref_num?: boolean
     tax_type?: boolean
-    tax_ammount?: boolean
+    tax_amount?: boolean
     submission_date?: boolean
   }, ExtArgs["result"]["receipt"]>
 
@@ -1093,11 +1093,11 @@ export namespace Prisma {
     id?: boolean
     ref_num?: boolean
     tax_type?: boolean
-    tax_ammount?: boolean
+    tax_amount?: boolean
     submission_date?: boolean
   }
 
-  export type ReceiptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ref_num" | "tax_type" | "tax_ammount" | "submission_date", ExtArgs["result"]["receipt"]>
+  export type ReceiptOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ref_num" | "tax_type" | "tax_amount" | "submission_date", ExtArgs["result"]["receipt"]>
 
   export type $ReceiptPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Receipt"
@@ -1106,7 +1106,7 @@ export namespace Prisma {
       id: number
       ref_num: string
       tax_type: string
-      tax_ammount: number
+      tax_amount: number
       submission_date: string
     }, ExtArgs["result"]["receipt"]>
     composites: {}
@@ -1534,7 +1534,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Receipt", 'Int'>
     readonly ref_num: FieldRef<"Receipt", 'String'>
     readonly tax_type: FieldRef<"Receipt", 'String'>
-    readonly tax_ammount: FieldRef<"Receipt", 'Int'>
+    readonly tax_amount: FieldRef<"Receipt", 'Int'>
     readonly submission_date: FieldRef<"Receipt", 'String'>
   }
     
@@ -1915,7 +1915,7 @@ export namespace Prisma {
     id: 'id',
     ref_num: 'ref_num',
     tax_type: 'tax_type',
-    tax_ammount: 'tax_ammount',
+    tax_amount: 'tax_amount',
     submission_date: 'submission_date'
   };
 
@@ -1966,7 +1966,7 @@ export namespace Prisma {
     id?: IntFilter<"Receipt"> | number
     ref_num?: StringFilter<"Receipt"> | string
     tax_type?: StringFilter<"Receipt"> | string
-    tax_ammount?: IntFilter<"Receipt"> | number
+    tax_amount?: IntFilter<"Receipt"> | number
     submission_date?: StringFilter<"Receipt"> | string
   }
 
@@ -1974,7 +1974,7 @@ export namespace Prisma {
     id?: SortOrder
     ref_num?: SortOrder
     tax_type?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
     submission_date?: SortOrder
   }
 
@@ -1985,7 +1985,7 @@ export namespace Prisma {
     OR?: ReceiptWhereInput[]
     NOT?: ReceiptWhereInput | ReceiptWhereInput[]
     tax_type?: StringFilter<"Receipt"> | string
-    tax_ammount?: IntFilter<"Receipt"> | number
+    tax_amount?: IntFilter<"Receipt"> | number
     submission_date?: StringFilter<"Receipt"> | string
   }, "id" | "ref_num">
 
@@ -1993,7 +1993,7 @@ export namespace Prisma {
     id?: SortOrder
     ref_num?: SortOrder
     tax_type?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
     submission_date?: SortOrder
     _count?: ReceiptCountOrderByAggregateInput
     _avg?: ReceiptAvgOrderByAggregateInput
@@ -2009,14 +2009,14 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Receipt"> | number
     ref_num?: StringWithAggregatesFilter<"Receipt"> | string
     tax_type?: StringWithAggregatesFilter<"Receipt"> | string
-    tax_ammount?: IntWithAggregatesFilter<"Receipt"> | number
+    tax_amount?: IntWithAggregatesFilter<"Receipt"> | number
     submission_date?: StringWithAggregatesFilter<"Receipt"> | string
   }
 
   export type ReceiptCreateInput = {
     ref_num: string
     tax_type: string
-    tax_ammount: number
+    tax_amount: number
     submission_date: string
   }
 
@@ -2024,14 +2024,14 @@ export namespace Prisma {
     id?: number
     ref_num: string
     tax_type: string
-    tax_ammount: number
+    tax_amount: number
     submission_date: string
   }
 
   export type ReceiptUpdateInput = {
     ref_num?: StringFieldUpdateOperationsInput | string
     tax_type?: StringFieldUpdateOperationsInput | string
-    tax_ammount?: IntFieldUpdateOperationsInput | number
+    tax_amount?: IntFieldUpdateOperationsInput | number
     submission_date?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2039,7 +2039,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     ref_num?: StringFieldUpdateOperationsInput | string
     tax_type?: StringFieldUpdateOperationsInput | string
-    tax_ammount?: IntFieldUpdateOperationsInput | number
+    tax_amount?: IntFieldUpdateOperationsInput | number
     submission_date?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2047,14 +2047,14 @@ export namespace Prisma {
     id?: number
     ref_num: string
     tax_type: string
-    tax_ammount: number
+    tax_amount: number
     submission_date: string
   }
 
   export type ReceiptUpdateManyMutationInput = {
     ref_num?: StringFieldUpdateOperationsInput | string
     tax_type?: StringFieldUpdateOperationsInput | string
-    tax_ammount?: IntFieldUpdateOperationsInput | number
+    tax_amount?: IntFieldUpdateOperationsInput | number
     submission_date?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2062,7 +2062,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     ref_num?: StringFieldUpdateOperationsInput | string
     tax_type?: StringFieldUpdateOperationsInput | string
-    tax_ammount?: IntFieldUpdateOperationsInput | number
+    tax_amount?: IntFieldUpdateOperationsInput | number
     submission_date?: StringFieldUpdateOperationsInput | string
   }
 
@@ -2095,20 +2095,20 @@ export namespace Prisma {
     id?: SortOrder
     ref_num?: SortOrder
     tax_type?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
     submission_date?: SortOrder
   }
 
   export type ReceiptAvgOrderByAggregateInput = {
     id?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
   }
 
   export type ReceiptMaxOrderByAggregateInput = {
     id?: SortOrder
     ref_num?: SortOrder
     tax_type?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
     submission_date?: SortOrder
   }
 
@@ -2116,13 +2116,13 @@ export namespace Prisma {
     id?: SortOrder
     ref_num?: SortOrder
     tax_type?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
     submission_date?: SortOrder
   }
 
   export type ReceiptSumOrderByAggregateInput = {
     id?: SortOrder
-    tax_ammount?: SortOrder
+    tax_amount?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
