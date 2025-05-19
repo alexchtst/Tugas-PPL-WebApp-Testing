@@ -12,6 +12,6 @@ model Receipt {
   id              Int    @id @default(autoincrement())
   ref_num         String @unique
   tax_type        String
-  tax_amount      Int    // Perbaiki dari tax_ammount ke tax_amount
+  tax_amount      Int    
   submission_date String
 }
