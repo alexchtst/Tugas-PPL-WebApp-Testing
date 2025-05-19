@@ -118,7 +118,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\msi\\ppl\\Tugas-PPL-WebApp-Testing\\app\\generated\\prisma",
+      "value": "D:\\UGM\\Kuliah\\6th Semester\\Software Testing\\Pasca UTS\\Tugas-akhir\\Tugas-PPL-WebApp-Testing\\app\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -132,7 +132,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\msi\\ppl\\Tugas-PPL-WebApp-Testing\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\UGM\\Kuliah\\6th Semester\\Software Testing\\Pasca UTS\\Tugas-akhir\\Tugas-PPL-WebApp-Testing\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
