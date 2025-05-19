@@ -1,6 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Submission from '../page';
 
+// Mock redirect dari next/navigation
+jest.mock('next/navigation', () => ({
+  redirect: jest.fn(),
+}));
+
+import { redirect } from 'next/navigation';
+
 describe('Submission Page', () => {
   it('renders the main heading and form components', () => {
     render(<Submission />);
@@ -33,5 +40,15 @@ describe('Submission Page', () => {
 
     // Error message should not exist
     expect(screen.queryByText(/Tax amount must be a positive number/i)).not.toBeInTheDocument();
+  });
+
+  it('redirects to tax-payment page on Find Receipt button click', () => {
+    render(<Submission />);
+
+    const button = screen.getByText('Find Receipt');
+    fireEvent.click(button);
+
+    expect(redirect).toHaveBeenCalledWith('/tax-payment');
+
   });
 });
