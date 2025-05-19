@@ -40,7 +40,7 @@ describe('TaxPayment Component', () => {
   it('updates input value on change', () => {
     render(<TaxPayment />);
     const input = screen.getByPlaceholderText('e.g., REF123456') as HTMLInputElement;
-    
+
     fireEvent.change(input, { target: { value: 'REF-ABC123' } });
 
     expect(input.value).toBe('REF-ABC123');
@@ -51,7 +51,7 @@ describe('TaxPayment Component', () => {
     window.location = { assign: jest.fn() } as any;
 
     render(<TaxPayment />);
-    
+
     const input = screen.getByPlaceholderText('e.g., REF123456');
     fireEvent.change(input, { target: { value: 'REF-XYZ789' } });
 
@@ -62,13 +62,12 @@ describe('TaxPayment Component', () => {
   });
 
   it('redirects to submission page on Home button click', () => {
-
     render(<TaxPayment />);
-    
+
     const button = screen.getByText('Home');
     fireEvent.click(button);
 
-        expect(redirect).toHaveBeenCalledWith('/submission');
-    
+    expect(redirect).toHaveBeenCalledWith('/submission');
+
   });
 });
