@@ -1,31 +1,29 @@
-import { NextResponse } from 'next/server';
-import { PrismaClient } from '@/app/generated/prisma';
-import { generateRefNum } from '@/app/utils/generateRefNum';
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@/app/generated/prisma";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const { tax_type, tax_ammount, submission_date } = body;
-
-  if (!tax_type || tax_ammount == null || !submission_date) {
-    return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-  }
-
-  const ref_num = generateRefNum();
-
+export async function GET(
+  request: Request,
+  { params }: { params: { ref: string } }
+) {
   try {
-    const receipt = await prisma.receipt.create({
-      data: {
-        ref_num,
-        tax_type,
-        tax_ammount,
-        submission_date,
+    const receipt = await prisma.receipt.findUnique({
+      where: {
+        ref_num: params.ref,
       },
     });
 
-    return NextResponse.json(receipt, { status: 201 });
-  } catch (err) {
-    return NextResponse.json({ error: 'Database error or duplicate ref_num' }, { status: 500 });
+    if (!receipt) {
+      return NextResponse.json({ error: "Receipt not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(receipt);
+  } catch (error) {
+    console.error("[GET_RECEIPT]", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

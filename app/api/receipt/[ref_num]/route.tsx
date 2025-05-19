@@ -1,37 +1,35 @@
-import prisma from "@/app/generated/prisma";
-import { NextRequest, NextResponse } from "next/server";
+// app/api/receipt/[ref_num]/route.tsx
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@/app/generated/prisma";
+
+const prisma = new PrismaClient();
 
 export async function GET(
-  req: NextRequest,
+  request: Request,
   { params }: { params: { ref_num: string } }
 ) {
   try {
-    const { ref_num } = params;
+    const cleanRef = decodeURIComponent(params.ref_num).trim().toUpperCase();
+    console.log("Searching for receipt:", cleanRef);
 
-    // Validasi ref_num
-    if (!ref_num) {
+    const receipt = await prisma.receipt.findUnique({
+      where: {
+        ref_num: cleanRef,
+      },
+    });
+
+    if (!receipt) {
       return NextResponse.json(
-        { error: "Receipt reference number is required" },
-        { status: 400 }
+        { error: `Receipt with ref ${cleanRef} not found` },
+        { status: 404 }
       );
     }
 
-    // Cari data receipt berdasarkan ref_num
-    const receipt = await prisma.receipt.findUnique({
-      where: { ref_num },
-    });
-
-    // Jika receipt tidak ditemukan
-    if (!receipt) {
-      return NextResponse.json({ error: "Receipt not found" }, { status: 404 });
-    }
-
-    // Jika receipt ditemukan
-    return NextResponse.json(receipt, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching receipt:", error);
+    return NextResponse.json(receipt);
+  } catch (error: any) {
+    console.error("[GET_RECEIPT_ERROR]", error);
     return NextResponse.json(
-      { error: "Failed to fetch receipt" },
+      { error: "Internal server error", message: error.message },
       { status: 500 }
     );
   }
