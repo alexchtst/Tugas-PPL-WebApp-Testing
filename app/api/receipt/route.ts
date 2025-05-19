@@ -3,16 +3,9 @@ import { PrismaClient } from "@/app/generated/prisma";
 
 const prisma = new PrismaClient();
 
-export async function GET(
-  request: Request,
-  { params }: { params: { ref: string } }
-) {
+export async function GET() {
   try {
-    const receipt = await prisma.receipt.findUnique({
-      where: {
-        ref_num: params.ref,
-      },
-    });
+    const receipt = await prisma.receipt.findMany();
 
     if (!receipt) {
       return NextResponse.json({ error: "Receipt not found" }, { status: 404 });

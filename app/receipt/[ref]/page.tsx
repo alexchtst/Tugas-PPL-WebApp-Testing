@@ -9,47 +9,18 @@ interface ReceiptData {
   submission_date: string;
 }
 
-async function getReceiptData(refNum: string) {
+export default async function ReceiptPage({ params }: { params: { ref: string } }) {
   try {
-    // Gunakan BASE_URL dari environment variable untuk URL lengkap
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const cleanRef = encodeURIComponent(refNum.trim());
-    const apiUrl = `${baseUrl}/api/receipt/${cleanRef}`;
-    console.log("Fetching from:", apiUrl);
-
-    const res = await fetch(apiUrl, {
+    const { ref } = await params;
+    const res = await fetch(`http://localhost:3000/api/receipt/${ref}`, {
       cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
 
     if (!res.ok) {
-      const errorData = await res.json();
-      console.error("API Error:", errorData);
-      throw new Error(
-        errorData.error || `Failed to fetch receipt (Status: ${res.status})`
-      );
+      throw new Error("Failed to fetch receipt data");
     }
 
-    return await res.json();
-  } catch (error) {
-    console.error("Fetch Error:", error);
-  }
-}
-
-export default async function ReceiptPage({
-  params,
-}: {
-  params: { ref: string };
-}) {
-  try {
-    // Pastikan params sudah di-load sebelum digunakan
-    const { ref } = params;
-    console.log("Fetching receipt for ref:", ref);
-
-    const receipt: ReceiptData = await getReceiptData(ref);
-    if (!receipt) throw new Error("Receipt not found");
+    const receipt: ReceiptData = await res.json();
 
     const formattedDate = format(
       new Date(receipt.submission_date),
