@@ -17,7 +17,21 @@ export default async function ReceiptPage({ params }: { params: { ref: string } 
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch receipt data");
+      return (
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+          <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              Error Loading Receipt
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Failed to load receipt data. Please try again later.
+            </p>
+            <CustomButton href="/submission" className="w-full">
+              ← Back to New Submission
+            </CustomButton>
+          </div>
+        </div>
+      );
     }
 
     const receipt: ReceiptData = await res.json();
@@ -75,20 +89,6 @@ export default async function ReceiptPage({ params }: { params: { ref: string } 
     );
   } catch (error: any) {
     console.error("Receipt error:", error);
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
-        <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">
-            Error Loading Receipt
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Failed to load receipt data. Please try again later.
-          </p>
-          <CustomButton href="/submission" className="w-full">
-            ← Back to New Submission
-          </CustomButton>
-        </div>
-      </div>
-    );
+
   }
 }
