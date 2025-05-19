@@ -8,6 +8,14 @@ export async function GET(
   try {
     const { ref_num } = params;
 
+    // Validasi ref_num
+    if (!ref_num) {
+      return NextResponse.json(
+        { error: "Receipt reference number is required" },
+        { status: 400 }
+      );
+    }
+
     // Cari data receipt berdasarkan ref_num
     const receipt = await prisma.receipt.findUnique({
       where: { ref_num },
