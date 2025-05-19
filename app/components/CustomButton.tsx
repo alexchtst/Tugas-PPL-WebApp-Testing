@@ -7,7 +7,8 @@ interface CustomButtonProps {
   className?: string;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
-  href?: string; // Tambahkan prop href untuk navigasi
+  href?: string;
+  disabled?: boolean;
 }
 
 export default function CustomButton({
@@ -16,13 +17,20 @@ export default function CustomButton({
   onClick,
   type = "button",
   href,
+  disabled = false,
 }: CustomButtonProps) {
   const baseClass =
-    "flex items-center justify-center space-x-2 bg-indigo-700 hover:bg-indigo-500 text-white py-3 rounded-lg font-semibold transition duration-200 w-full cursor-pointer";
+    "flex items-center justify-center space-x-2 bg-indigo-700 hover:bg-indigo-500 text-white py-3 rounded-lg font-semibold transition duration-200 w-full";
 
-  if (href) {
+  const disabledClass = disabled
+    ? "bg-gray-400 cursor-not-allowed hover:bg-gray-400"
+    : "cursor-pointer";
+
+  const mergedClass = twMerge(baseClass, disabledClass, className);
+
+  if (href && !disabled) {
     return (
-      <Link href={href} className={twMerge(baseClass, className)}>
+      <Link href={href} className={mergedClass}>
         {children}
       </Link>
     );
@@ -31,8 +39,9 @@ export default function CustomButton({
   return (
     <button
       type={type}
-      className={twMerge(baseClass, className)}
+      className={mergedClass}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>
