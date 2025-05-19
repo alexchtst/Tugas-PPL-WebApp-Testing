@@ -9,47 +9,32 @@ interface ReceiptData {
   submission_date: string;
 }
 
-async function getReceiptData(refNum: string) {
+export default async function ReceiptPage({ params }: { params: { ref: string } }) {
   try {
-    // Gunakan BASE_URL dari environment variable untuk URL lengkap
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const cleanRef = encodeURIComponent(refNum.trim());
-    const apiUrl = `${baseUrl}/api/receipt/${cleanRef}`;
-    console.log("Fetching from:", apiUrl);
-
-    const res = await fetch(apiUrl, {
+    const { ref } = await params;
+    const res = await fetch(`http://localhost:3000/api/receipt/${ref}`, {
       cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
 
     if (!res.ok) {
-      const errorData = await res.json();
-      console.error("API Error:", errorData);
-      throw new Error(
-        errorData.error || `Failed to fetch receipt (Status: ${res.status})`
+      return (
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
+          <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              Error Loading Receipt
+            </h2>
+            <p className="text-gray-600 mb-6">
+              Failed to load receipt data. Please try again later.
+            </p>
+            <CustomButton href="/submission" className="w-full">
+              ← Back to New Submission
+            </CustomButton>
+          </div>
+        </div>
       );
     }
 
-    return await res.json();
-  } catch (error) {
-    console.error("Fetch Error:", error);
-  }
-}
-
-export default async function ReceiptPage({
-  params,
-}: {
-  params: { ref: string };
-}) {
-  try {
-    // Pastikan params sudah di-load sebelum digunakan
-    const { ref } = params;
-    console.log("Fetching receipt for ref:", ref);
-
-    const receipt: ReceiptData = await getReceiptData(ref);
-    if (!receipt) throw new Error("Receipt not found");
+    const receipt: ReceiptData = await res.json();
 
     const formattedDate = format(
       new Date(receipt.submission_date),
@@ -104,20 +89,6 @@ export default async function ReceiptPage({
     );
   } catch (error: any) {
     console.error("Receipt error:", error);
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-200">
-        <div className="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">
-            Error Loading Receipt
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Failed to load receipt data. Please try again later.
-          </p>
-          <CustomButton href="/submission" className="w-full">
-            ← Back to New Submission
-          </CustomButton>
-        </div>
-      </div>
-    );
+
   }
 }

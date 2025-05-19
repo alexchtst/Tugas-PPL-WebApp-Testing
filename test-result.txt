@@ -1,0 +1,95 @@
+--------------------------|---------|----------|---------|---------|------------------------------------------------
+File                      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                              
+--------------------------|---------|----------|---------|---------|------------------------------------------------
+All files                 |   19.89 |     7.36 |    9.45 |      78 |                                                
+ api/receipt/[ref_num]    |   86.66 |    66.66 |     100 |   86.66 |                                                
+  route.ts                |   86.66 |    66.66 |     100 |   86.66 | 30-31                                          
+ api/submission           |     100 |      100 |     100 |     100 |                                                
+  route.tsx               |     100 |      100 |     100 |     100 |                                                
+ components               |     100 |       70 |     100 |     100 |                                                
+  CustomButton.tsx        |     100 |    57.14 |     100 |     100 | 25-31                                          
+  CustomInput.tsx         |     100 |      100 |     100 |     100 |                                                
+  ReceiptTable.tsx        |     100 |      100 |     100 |     100 |                                                
+  TaxTypeDropdown.tsx     |     100 |      100 |     100 |     100 |                                                
+ generated/prisma         |      90 |    42.85 |       0 |      90 |                                                
+  index.js                |      90 |    42.85 |       0 |      90 | 166-176                                        
+ generated/prisma/runtime |   17.72 |     6.83 |    8.41 |      54 |                                                
+  library.js              |   17.72 |     6.83 |    8.41 |      54 | 14,18-22,25-27,38-60,68,72-104,115-116,126-129 
+ submission               |   61.11 |     62.5 |      80 |   61.11 |                                                
+  page.tsx                |   61.11 |     62.5 |      80 |   61.11 | 32-64,91                                       
+ tax-payment              |     100 |      100 |     100 |     100 |                                                
+  page.tsx                |     100 |      100 |     100 |     100 |                                                
+ utils                    |     100 |      100 |     100 |     100 |                                                
+  generateRefNum.ts       |     100 |      100 |     100 |     100 |                                                
+--------------------------|---------|----------|---------|---------|------------------------------------------------
+
+PASS app/utils/generateRefNum.test.ts
+  generateRefNum
+    √ should generate ref in format REF-MAxxxx-YYYY (22 ms)
+    √ should always start with 'REF-MA' (2 ms)
+    √ should generate unique values (1 ms)
+
+PASS app/api/receipt/[ref_num]/__tests__/route.test.tsx
+  GET /api/receipt/[ref_num] - found Income Tax
+    √ should return receipt data when found [200] (98 ms)
+  GET /api/receipt/[ref_num] - found Vehicle Tax
+    √ should return receipt data when found [200] (6 ms)
+  GET /api/receipt/[ref_num] - mismatch
+    √ should not match incorrect receipt data [200] (10 ms)
+  GET /api/receipt/[ref_num] - not found
+    √ should return 404 when receipt not found (9 ms)
+
+PASS app/api/submission/__test__/route.test.ts
+  POST /api/submission
+    √ should create and return new receipt [201] (96 ms)
+    √ should return 400 if required fields are missing (2 ms)
+    √ should return 500 if database error occurs (32 ms)
+
+PASS app/components/CustomInput.test.tsx
+  CustomInput
+    √ renders label and placeholder correctly (174 ms)
+    √ renders with provided value (16 ms)
+    √ calls onChange when value changes (24 ms)
+    √ applies error class and displays error message (18 ms)
+    √ accepts additional custom class (10 ms)
+
+PASS app/tax-payment/__test__/page.test.tsx
+  TaxPayment Component
+    √ renders heading and input field correctly (155 ms)
+    √ updates input value on change (25 ms)
+    √ redirects to receipt page on Search button click (32 ms)
+    √ redirects to submission page on Home button click (25 ms)
+
+PASS app/components/CustomButton.test.tsx
+  CustomButton
+    √ renders children correctly (112 ms)
+    √ calls onClick when clicked (122 ms)
+    √ applies custom className (29 ms)
+    √ uses default type="button" (34 ms)
+    √ allows overriding type to submit (18 ms)
+
+PASS app/components/TaxTypeDropdown.test.tsx
+  TaxTypeDropdown
+    √ renders the label (87 ms)
+    √ renders the default select element (107 ms)
+    √ renders all available options (138 ms)
+    √ allows selecting an option (99 ms)
+
+PASS app/submission/__tests__/page.test.tsx
+  Submission Page
+    √ renders the main heading and form components (234 ms)
+    √ shows error when tax amount is negative (187 ms)
+    √ does not show error for valid tax amount (87 ms)
+    √ redirects to tax-payment page on Find Receipt button click (23 ms)
+
+PASS app/components/ReceiptTable.test.tsx
+  ReceiptTable
+    √ renders all receipt information correctly (135 ms)
+    √ renders back button with label (16 ms)
+    √ calls redirect when back button is clicked (149 ms)
+
+Test Suites: 9 passed, 9 total
+Tests:       35 passed, 35 total
+Snapshots:   0 total
+Time:        7.919 s
+Ran all test suites matching /test/i.

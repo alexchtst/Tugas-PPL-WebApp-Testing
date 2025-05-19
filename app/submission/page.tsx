@@ -5,6 +5,7 @@ import TaxTypeDropdown from "@/app/components/TaxTypeDropdown";
 import { CircleDollarSign, CircleUser, ReceiptText } from "lucide-react";
 import CustomInput from "@/app/components/CustomInput";
 import CustomButton from "@/app/components/CustomButton";
+import { redirect } from "next/navigation";
 
 export default function Submission() {
   const [taxAmount, setTaxAmount] = useState("");
@@ -13,9 +14,9 @@ export default function Submission() {
   const [isSubmitting, setIsSubmitting] = useState(false); // Tambahkan state untuk loading
 
   const handleSubmit = async () => {
-    console.log("Submitting with:", { taxType, taxAmount }); // Debug log
+    console.log("Submitting with:", { taxType, taxAmount });
 
-    const parsedAmount = parseInt(taxAmount); // Ubah dari parseFloat ke parseInt
+    const parsedAmount = parseInt(taxAmount);
 
     if (isNaN(parsedAmount) || parsedAmount < 0) {
       setAmountError("Tax amount must be a positive number.");
@@ -71,7 +72,8 @@ export default function Submission() {
           <CircleDollarSign color="blue" size={30} />
           <p className="font-bold text-blue-600 text-xl">TaxEasePortal</p>
         </div>
-        <CircleUser color="blue" size={30} />
+        <button type="button" className='text-gray-300 cursor-pointer' onClick={() => redirect('/tax-payment')}>Find Receipt</button>
+
       </div>
       {/* navigation */}
 

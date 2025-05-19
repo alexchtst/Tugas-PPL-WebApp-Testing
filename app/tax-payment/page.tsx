@@ -4,9 +4,12 @@ import { ClipboardList, Search } from "lucide-react";
 import CustomInput from '@/app/components/CustomInput';
 import CustomButton from "../components/CustomButton";
 import { redirect } from 'next/navigation';
+import { useState } from "react";
 
 
 export default function TaxPayment() {
+  const [search, setSearch] = useState('');
+
   return (
     <div className='flex flex-col justify-between h-screen items-center'>
       {/* navigation */}
@@ -35,10 +38,12 @@ export default function TaxPayment() {
               label="Reference Number"
               input_type="text"
               place_holder="e.g., REF123456"
+              onChange={e => setSearch(e.target.value)}
+              value={search}
             />
           </div>
           <div className="w-1/4">
-            <CustomButton className="bg-indigo-800 hover:bg-indigo-600 text-[2.5vw] md:text-[1vw]">
+            <CustomButton className="bg-indigo-800 hover:bg-indigo-600 text-[2.5vw] md:text-[1vw]" href={`/receipt/${search}`}>
               <Search color="white" size={18} className="hidden md:flex" />
               <p className="font-bold text-white">Search</p>
             </CustomButton>
