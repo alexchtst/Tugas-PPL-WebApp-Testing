@@ -121,7 +121,7 @@ exports.Prisma.ReceiptScalarFieldEnum = {
   id: 'id',
   ref_num: 'ref_num',
   tax_type: 'tax_type',
-  tax_ammount: 'tax_ammount',
+  tax_amount: 'tax_amount',
   submission_date: 'submission_date'
 };
 
