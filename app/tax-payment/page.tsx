@@ -18,7 +18,7 @@ export default function TaxPayment() {
           <Search color='blue' size={30} />
           <p className='font-bold text-blue-600 text-xl'>Reference Lookup</p>
         </div>
-        <button type="button" className='text-gray-300 cursor-pointer' onClick={() => redirect('/submission')}>Home</button>
+        <button type="button" className='text-blue-600 cursor-pointer' onClick={() => redirect('/submission')}>Home</button>
       </div>
       {/* navigation */}
 

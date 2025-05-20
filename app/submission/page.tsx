@@ -72,7 +72,7 @@ export default function Submission() {
           <CircleDollarSign color="blue" size={30} />
           <p className="font-bold text-blue-600 text-xl">TaxEasePortal</p>
         </div>
-        <button type="button" className='text-gray-300 cursor-pointer' onClick={() => redirect('/tax-payment')}>Find Receipt</button>
+        <button type="button" className='text-blue-600 cursor-pointer' onClick={() => redirect('/tax-payment')}>Find Receipt</button>
 
       </div>
       {/* navigation */}
