@@ -111,3 +111,6 @@ Ini adalah ketika invoice tidak berhasil ditemukan.
 #### Testing API 2
 ![API Cretae Rceipt / Payment Tax](image_docs/api2.png)
 ![API Cretae Rceipt / Payment Tax](image_docs/api2-fail.png)
+
+## Link PPT
+https://www.canva.com/design/DAGn2uxdAqk/KMqgh5M2t1VLzR3K9cdR5A/edit?utm_content=DAGn2uxdAqk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
