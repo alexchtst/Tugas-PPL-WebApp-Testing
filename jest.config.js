@@ -9,10 +9,17 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/app/components/$1",
-    "^@/app/(.*)$": "<rootDir>/app/$1", // Add this line for app-wide aliases
-    "^@/generated/(.*)$": "<rootDir>/app/generated/$1", // Add this for Prisma
+    "^@/app/(.*)$": "<rootDir>/app/$1",
+    "^@/generated/(.*)$": "<rootDir>/app/generated/$1",
   },
-  moduleDirectories: ["node_modules", "<rootDir>"], // Add this to help with module resolution
+  moduleDirectories: ["node_modules", "<rootDir>"],
+
+  // ✅ Tambahkan ini untuk mengabaikan file Prisma dari coverage
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "<rootDir>/app/generated/prisma/",
+    "<rootDir>/app/generated/prisma/runtime/",
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
